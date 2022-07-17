@@ -11,6 +11,11 @@ terraform {
   }
 }
 
+variable "imagebuild" {
+  type = string
+  description = "Latest Image build"
+}
+
 resource "azurerm_resource_group" "tf_serviceapi_rg" {
     name = "tf_serviceapi_rg"
     location = "Central US"
@@ -27,7 +32,7 @@ resource "azurerm_container_group" "tf_serviceapi_cont_grp" {
 
   container {
     name = "servicedeskapi"
-    image = "tchoumkeu/servicedeskapi"
+    image = "tchoumkeu/servicedeskapi:${var.imagebuild}"
     cpu = "1"
     memory = "1"
     ports {
